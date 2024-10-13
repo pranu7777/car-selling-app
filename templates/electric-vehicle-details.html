@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Electric vehicle Details</title>
+    <link type="text/css" href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet"/>
+    <style>
+        .all-button{
+            padding: 5px;
+            background-color: rgb(128, 206, 128);
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form action="/search-electric-vehicle" method="get">
+    <div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="name_filter">Car Name:</label>
+        <input type="text" id="name_filter" name="name_filter" placeholder="Enter Name"/><br/>
+    </div>
+    <div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="manufacturer_filter">Brand:</label>
+        <input type="text" id="manufacturer_filter" name="manufacturer_filter" placeholder="Enter Manufacturer"/><br/>
+    </div>
+    <div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="min_year_filter">car production year (Min):</label>
+        <input type="number" id="min_year_filter" name="min_year_filter" placeholder="Enter Min Year" step="1" value=""/><br/>
+    </div>
+    <div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="max_year_filter">car production year (Max):</label>
+        <input type="number" id="max_year_filter" name="max_year_filter" placeholder="Enter Max Year" step="1" value=""/><br/>
+    </div>
+    <div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="min_battery_size_filter">Battery Size (Kwh) (Min):</label>
+        <input type="number" id="min_battery_size_filter" name="min_battery_size_filter" placeholder="Enter Min Battery Size" step="0.01" value=""/><br/>
+    </div>
+    <div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="max_battery_size_filter">Battery Size (Kwh) (Max):</label>
+        <input type="number" id="max_battery_size_filter" name="max_battery_size_filter" placeholder="Enter Max Battery Size" step="0.01" value=""/><br/>
+    </div>
+    <div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="min_wltp_range_filter">WLTP Range (Km) (Min):</label>
+        <input type="number" id="min_wltp_range_filter" name="min_wltp_range_filter" placeholder="Enter Min WLTP Range" step="0.01" value=""/><br/>
+    </div>
+    <div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="max_wltp_range_filter">WLTP Range (Km) (Max):</label>
+        <input type="number" id="max_wltp_range_filter" name="max_wltp_range_filter" placeholder="Enter Max WLTP Range" step="0.01" value=""/><br/>
+    </div>
+    <div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="min_cost_filter">Cost (Min):</label>
+        <input type="number" id="min_cost_filter" name="min_cost_filter" placeholder="Enter Min Cost" step="0.01" value=""/><br/>
+    </div>
+    <div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="max_cost_filter">Cost (Max):</label>
+        <input type="number" id="max_cost_filter" name="max_cost_filter" placeholder="Enter Max Cost" step="0.01" value=""/><br/>
+    </div>
+    <div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="power_min">Power (Kw) (Min):</label>
+        <input type="number" id="power_min" name="power_min" placeholder="Enter Min Power" step="0.01" value=""/><br/>
+    </div>
+    <div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="max_power_filter">Power (Kw) (Max):</label>
+        <input type="number" id="max_power_filter" name="max_power_filter" placeholder="Enter Max Power" step="0.01" value=""/><br/>
+        </div>  
+        <input class="all-button" type="submit" value="Search"/>
+    </form>
+    
+    
+    
+
+    {% if detailsOfev %}
+        {% for ev in detailsOfev %}
+            <h1>{{ ev.get('car_name') }}</h1>
+            <form action="/update-electric-vehicle/{{ ev.get('car_id') }}" method="post">  
+            <div style="display: flex;margin-bottom: 10px;">        
+                <label style="width: 200px;" for="car_name">Name:</label>
+                <input type="text" id="car_name" name="car_name" placeholder="Enter Name" value="{{ ev.get('car_name') }}"/><br/>
+            </div>
+            <div style="display: flex;margin-bottom: 10px;">
+                <label style="width: 200px;" for="car_brand">car brand:</label>
+                <input type="text" id="car_brand" name="car_brand" placeholder="Enter New Manufacturer" value="{{ ev.get('car_brand') }}"/><br/>
+            </div>
+            <div style="display: flex;margin-bottom: 10px;">
+                <label style="width: 200px;" for="car_production_year">car_production_year:</label>
+                <input type="number" id="car_production_year" name="car_production_year" placeholder="Enter New Year" value="{{ ev.get('car_production_year') }}"/><br/>
+            </div>
+            <div style="display: flex;margin-bottom: 10px;">
+                <label style="width: 200px;" for="car_range">WLTP Range (Km):</label>
+                <input type="number" id="car_range" name="car_range" placeholder="Enter New WLTP Range" value="{{ ev.get('car_range') }}"/><br/>
+            </div>
+            <div style="display: flex;margin-bottom: 10px;">
+                <label style="width: 200px;" for="car_battery_capacity">car_battery_capacity (Kwh):</label>
+                <input type="number" id="car_battery_capacity" name="car_battery_capacity" placeholder="Enter New Battery Size" value="{{ ev.get('car_battery_capacity') }}"/><br/>
+            </div>
+            <div style="display: flex;margin-bottom: 10px;">
+                <label style="width: 200px;" for="car_motor_power">car motor power(Kw):</label>
+                <input type="number" id="car_motor_power" name="car_motor_power" placeholder="Enter New Power" value="{{ ev.get('car_motor_power') }}"/><br/>
+            </div>
+            <div style="display: flex;margin-bottom: 10px;">
+                <label style="width: 200px;" for="car_price">Cost:</label>
+                <input type="number" id="car_price" name="car_price" placeholder="Enter New Cost" value="{{ ev.get('car_price') }}"/><br/>
+            </div>
+            <div style="display: flex;margin-bottom: 10px;">
+                <label style="width: 200px;" for="avgRating">Average Rating:</label>
+                <input type="number" id="avgRating" name="avgRating"  value="{{ ev.get('avgRating') }}"/><br/>
+                </div>
+                {% if emailId == "mundakkalpranav797@gmail.com" %}
+                <input class="all-button" type="submit" value="Update"/>
+                {% endif %}
+            </form>
+            {% if emailId == "mundakkalpranav797@gmail.com" %}
+            <form action="/delete-electric-vehicle/{{ ev.get('car_id') }}" method="post">
+                <input class="all-button" type="submit" value="Delete"/>
+            </form>
+            {% endif %}
+            {% if not emailId == "mundakkalpranav797@gmail.com" %}
+                <form action="/add-review-electric-vehicle/{{ ev.get('car_id') }}" method="post">
+                    <div style="display: flex;margin-bottom: 10px;">
+                    
+                    <label style="width: 200px;" for="review">Review:</label>
+                    <textarea id="review" name="review" placeholder="Enter your review"></textarea><br/>
+            </div>
+            <div style="display: flex;margin-bottom: 10px;">
+                    <label style="width: 200px;" for="rating">Star Rating:</label>
+                    <select id="rating" name="rating">
+                        <option value=1>1 Star</option>   
+                        <option value=2>2 Stars</option>
+                        <option value=3>3 Stars</option>
+                        <option value=4>4 Stars</option>
+                        <option value=5>5 Stars</option>
+                    </select><br/>
+</div>
+                    
+                    <input class="all-button" type="submit" value="Add Review"/>
+                </form>
+            {% endif %}
+            {% if ev.get('oldReviews') %}
+            <h2>Reviews and Ratings</h2>
+            <ul>
+                {% for review in ev.get('oldReviews') %}
+                    <li style="display: flex;">
+                        <p style="padding-right: 20px;"><b>Review:</b> {{ review.get('text') }}</p>
+                        <p><b>Rating:</b> {{ review.get('rating') }} Stars</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No reviews and ratings yet.</p>
+        {% endif %}
+        {% endfor %}
+    {% else %}
+     <p>EV not found</p>
+    {% endif %}
+</body>
+</html>
+

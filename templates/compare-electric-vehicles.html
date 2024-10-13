@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compare Electric Vehicles</title>
+    <style>
+        .green {
+            color: green;
+        }
+        .red {
+            color: red;
+        }
+        .all-button{
+            padding: 5px;
+            background-color: rgb(128, 206, 128);
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Compare Electric Vehicles</h1>
+    <form action="/compare-electric-vehicles" method="get">
+        <label for="electric_vehicle_1">Electric Vehicle 1:</label>
+        <input style="margin-bottom: 10px;" type="text" id="electric_vehicle_1" name="electric_vehicle_1" placeholder="Enter Electric Vehicle 1 name"><br>
+        
+        <label for="electric_vehicle_2">Electric Vehicle 2:</label>
+        <input type="text" id="electric_vehicle_2" name="electric_vehicle_2" placeholder="Enter Electric Vehicle 2 name"><br>
+        
+        <button class="all-button" type="submit">Evaluate</button>
+    </form>
+    
+    <h1>Comparison Results</h1>
+{% if electric_vehicle_1_data and electric_vehicle_2_data %}
+    <table>
+        <thead>
+            <tr>
+                <th>Attribute</th>
+                <th><a href="/electric-vehicle-details/{{ electric_vehicle_1_data['car_id'] }}">{{ electric_vehicle_1_data['car_name'] }}</a></th>
+                <th><a href="/electric-vehicle-details/{{ electric_vehicle_2_data['car_id'] }}">{{ electric_vehicle_2_data['car_name'] }}</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, value1 in electric_vehicle_1_data.items() %}
+                <tr>
+                    <td style="padding: 10px;">{{ key }}</td>
+                    {% if value1 is number %}
+                        {% if key == 'cost' %}
+                            {% if value1 > electric_vehicle_2_data[key] %}
+                                <td style="padding: 10px;text-align:center;" class="green">{{ value1 }}</td>
+                                <td style="padding: 10px;text-align:center;" class="red">{{ electric_vehicle_2_data[key] }}</td>
+                            {% elif value1 > electric_vehicle_2_data[key] %}
+                                <td style="padding: 10px;text-align:center;" class="red">{{ value1 }}</td>
+                                <td style="padding: 10px;text-align:center;" class="green">{{ electric_vehicle_2_data[key] }}</td>
+                            {% else %}
+                                <td style="padding: 10px;text-align:center;">{{ value1 }}</td>
+                                <td style="padding: 10px;text-align:center;">{{ electric_vehicle_2_data[key] }}</td>
+                            {% endif %}
+                        {% else %}
+                            {% if value1 > electric_vehicle_2_data[key] %}
+                                <td style="padding: 10px;text-align:center;" class="green">{{ value1 }}</td>
+                                <td style="padding: 10px;text-align:center;" class="red">{{ electric_vehicle_2_data[key] }}</td>
+                            {% elif value1 > electric_vehicle_2_data[key] %}
+                                <td style="padding: 10px;text-align:center;" class="red">{{ value1 }}</td>
+                                <td style="padding: 10px;text-align:center;" class="green">{{ electric_vehicle_2_data[key] }}</td>
+                            {% else %}
+                                <td style="padding: 10px;text-align:center;">{{ value1 }}</td>
+                                <td style="padding: 10px;text-align:center;">{{ electric_vehicle_2_data[key] }}</td>
+                            {% endif %}
+                        {% endif %}
+                    {% else %}
+                        <td style="padding: 10px;text-align:center;">{{ value1 }}</td>
+                        <td style="padding: 10px;text-align:center;">{{ electric_vehicle_2_data[key] }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Comparative data is not available for both Electric Vehicles.</p>
+{% endif %}
+</body>
+</html>
+

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Insert Car </title>
+        <link type="text/css" href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet" />
+        <style>
+            .all-button{
+                padding: 5px;
+                background-color: rgb(128, 206, 128);
+                margin-top: 10px;
+            }
+        </style>
+</head>
+
+<body>
+    <form action="/add-car" method="post">
+        <div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="car_id">Id:</label>
+        <input type="text" id="car_id" name="car_id" /><br />
+</div>
+<div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="car_name">Name:</label>
+        <input type="text" id="car_name" name="car_name" /><br />
+    </div>
+    <div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="car_brand">Brand:</label>
+        <input type="text" id="car_brand" name="car_brand" placeholder="Enter Brand" /><br />
+    </div>
+    <div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="car_production_year">Production Year:</label>
+        <input type="number" id="car_production_year" name="car_production_year"
+            placeholder="Enter Production Year" /><br />
+        </div>
+        <div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="car_range">Range (Km):</label>
+        <input type="number" step="any" id="car_range" name="car_range" placeholder="Enter Range" /><br />
+    </div>
+    <div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="car_price">Price:</label>
+        <input type="number" step="any" id="car_price" name="car_price" placeholder="Enter Price" /><br />
+    </div>
+    <div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="car_battery_capacity">Battery Capacity (Kwh):</label>
+        <input type="number" step="any" id="car_battery_capacity" name="car_battery_capacity"
+            placeholder="Enter Battery Capacity" /><br />
+        </div>
+        <div style="display: flex;margin-bottom: 10px;">
+        <label style="width: 200px;" for="car_motor_power">Motor Power (Kw):</label>
+        <input type="number" step="any" id="car_motor_power" name="car_motor_power"
+            placeholder="Enter Motor Power" /><br />
+</div>
+        <input class="all-button" type="submit" value="Insert Electric Car" />
+    </form>
+</body>
+
+</html>
